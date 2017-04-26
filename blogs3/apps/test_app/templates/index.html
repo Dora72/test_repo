@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>Can I do it :(</h1>
+{% for blog in blogs %}
+    <h5>{{ blog.title }}</h5>
+    <p>{{ blog.blog }}</p>
+    {% for comment in blog.comment_set.all%}
+        {{ comment.comment }}
+        {% endfor %}
+    <form action="/comment/{{ blog.id }}" method="post">
+        {% csrf_token %}
+        <label>Title</label>
+        <input type="text" name="title">
+        <textarea name="comment" rows="8" cols="40"></textarea>
+        <input type="submit" value="Enter Comment on This Blog">
+    </form>
+{% endfor %}
+    <form action="/blogs" method="post">
+        {% csrf_token %}
+        <label>Title</label>
+        <input type="text" name="title">
+        <textarea name="blog" rows="8" cols="40"></textarea>
+        <input type="submit" value="Enter Blog">
+    </form>
+</body>
+</html>
